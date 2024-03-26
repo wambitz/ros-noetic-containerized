@@ -4,6 +4,8 @@ FROM ros-noetic:latest
 USER ros
 
 COPY entrypoint.sh /home/ros/entrypoint.sh
+RUN  sudo chown ros:ros /home/ros/entrypoint.sh
+RUN  sudo chmod +x /home/ros/entrypoint.sh
 
 # Create the Catkin Workspce
 RUN mkdir -p /home/ros/catkin_ws/src
