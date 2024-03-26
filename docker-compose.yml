@@ -1,0 +1,35 @@
+version: '3'
+services:
+  ros-master:
+    image: ros-dev
+    container_name: ros-master
+    command: "roscore"
+    networks:
+      - ros-network
+
+  ros-talker:
+    image: ros-dev
+    container_name: ros-talker
+    volumes:
+      - ./catkin_ws/src:/home/ros/catkin_ws/src
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+    command: "catkin_make && source devel/setup.bash && rosrun hello_world_pkg talker.py"
+    networks:
+      - ros-network
+
+  ros-listener:
+    image: ros-dev
+    container_name: ros-listener
+    volumes:
+      - ./catkin_ws/src:/home/ros/catkin_ws/src
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+    command: "catkin_make && source devel/setup.bash && rosrun hello_world_pkg listener.py"
+    networks:
+      - ros-network
+
+networks:
+  ros-network:
+    name: ros-network
+    driver: bridge
