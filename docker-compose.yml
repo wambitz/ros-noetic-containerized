@@ -2,30 +2,34 @@ version: '3'
 services:
   ros-master:
     image: ros-dev
-    container_name: ros-master
+    container_name:  ros-master
     command: "roscore"
     networks:
       - ros-network
 
   ros-talker:
     image: ros-dev
-    container_name: ros-talker
+    container_name:  ros-talker
     volumes:
       - ./catkin_ws/src:/home/ros/catkin_ws/src
     environment:
       - ROS_MASTER_URI=http://ros-master:11311
-    command: "catkin_make && source devel/setup.bash && rosrun hello_world_pkg talker.py"
+    # NOTE: In comparison to running the commands directly with the entrypoint this needs to run th "/bin/bash -c"
+    # Otherwise "source devel/setup.bash" doesn't execute win the same bash session.
+    command: /bin/bash -c "catkin_make && source devel/setup.bash && rosrun hello_world_pkg talker.py"
     networks:
       - ros-network
 
   ros-listener:
     image: ros-dev
-    container_name: ros-listener
+    container_name:  ros-listener
     volumes:
       - ./catkin_ws/src:/home/ros/catkin_ws/src
     environment:
       - ROS_MASTER_URI=http://ros-master:11311
-    command: "catkin_make && source devel/setup.bash && rosrun hello_world_pkg listener.py"
+    # NOTE: In comparison to running the commands directly with the entrypoint this needs to run th "/bin/bash -c"
+    # Otherwise "source devel/setup.bash" doesn't execute win the same bash session.
+    command: /bin/bash -c "catkin_make && source devel/setup.bash && rosrun hello_world_pkg listener.py"
     networks:
       - ros-network
 
