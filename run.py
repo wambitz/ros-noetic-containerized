@@ -25,7 +25,26 @@ def create_docker_network(network_name):
         print(f"Network '{network_name}' already exists.")
 
 
+def is_container_running(name):
+    """
+    Checks if a container is already running.
+
+    :param name: The name of the Docker container.
+    :return: True if the container is running, False otherwise.
+    """
+    try:
+        output = subprocess.check_output(["docker", "ps", "--filter", f"name={name}", "--format", "{{.Names}}"]).decode().strip()
+        return name in output
+    except subprocess.CalledProcessError:
+        return False
+
+
 def run_container(name, network=None, command="/bin/bash", volumes=None, environment=None):
+
+    if is_container_running(name):
+        print(f"Container '{name}' is already running.")
+        return
+        
     try:
         cmd = ["docker", "run", "-d", "--rm", "--name", name, "--network", network]
         if volumes:
