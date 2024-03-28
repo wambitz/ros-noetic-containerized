@@ -1,98 +1,81 @@
 # ros-noetic-containerized
+
 This is a development environment for ROS using Docker containers
 
-# ROS Noetic Installation Guide for Ubuntu
+## Introduction
 
-This README provides instructions for installing ROS Noetic Ninjemys on Ubuntu systems. ROS Noetic is the final ROS 1 version targeted at the Ubuntu 20.04 (Focal Fossa) LTS release. 
+Briefly introduce the purpose of this document. Explain what the reader can expect to learn or achieve by going through this content. This section should provide context and set the stage for the detailed information that follows.
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Prerequisites](#prerequisites)
+3. [Section 1: Topic Overview](#section-1-topic-overview)
+4. [Section 2: Detailed Explanation](#section-2-detailed-explanation)
+   - [Subsection 2.1: Subtopic](#subsection-21-subtopic)
+   - [Subsection 2.2: Another Subtopic](#subsection-22-another-subtopic)
+5. [Section 3: Practical Examples](#section-3-practical-examples)
+   - [Example 1: Basic Example](#example-1-basic-example)
+   - [Example 2: Advanced Example](#example-2-advanced-example)
+6. [Troubleshooting](#troubleshooting)
+7. [Further Reading](#further-reading)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Acknowledgments](#acknowledgments)
 
 ## Prerequisites
 
-- Ubuntu 20.04 (Focal Fossa)
+Detail any prerequisites required to understand or work through the content of this document. This could include background knowledge, software installations, or related reading.
 
-## Step 1: Configure Ubuntu Repositories
+## Section 1: Topic Overview
 
-Ensure your Ubuntu repositories are configured to allow "restricted," "universe," and "multiverse" components. You can set this up in the Software & Updates application under the "Ubuntu Software" tab.
+Provide a general overview of the topic being covered. This section should lay the foundation for the more detailed discussion that will follow in later sections.
 
-## Step 2: Setup Your Sources.list
+## Section 2: Detailed Explanation
 
-Setup your computer to accept software from packages.ros.org by running the following command:
+Dive into the meat of the content here. Break down complex ideas into digestible pieces, and use subheadings to organize topics logically.
 
-```bash
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-```
+### Subsection 2.1: Subtopic
 
-## Step 3: Set Up Your Keys
+Elaborate on a specific aspect of the main topic. Use examples, code snippets, or diagrams where helpful.
 
-```bash
-sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-```
+### Subsection 2.2: Another Subtopic
 
-## Step 4: Installation
+Continue to dissect the main topic by exploring another subtopic. The depth and technicality of your explanation can vary based on the intended audience.
 
-First, make sure your Debian package index is up-to-date:
+## Section 3: Practical Examples
 
-```bash
-sudo apt update
-```
+Offer hands-on examples to illustrate the concepts discussed. Encourage experimentation by providing code snippets, simulation setups, or exercises.
 
-There are several ROS Noetic distributions available. Choose one that fits your needs:
+### Example 1: Basic Example
 
-- **Desktop-Full Install**: Everything in Desktop plus 2D/3D simulators and 2D/3D perception packages
+Introduce a simple, illustrative example. Provide step-by-step instructions to guide the reader through the process.
 
-  ```bash
-  sudo apt install ros-noetic-desktop-full
-  ```
+### Example 2: Advanced Example
 
-- **Desktop Install**: Everything in ROS-Base plus tools like rqt and rviz
+Challenge the reader with a more complex example that builds on the basic concepts introduced earlier.
 
-  ```bash
-  sudo apt install ros-noetic-desktop
-  ```
+## Troubleshooting
 
-- **ROS-Base**: Bare bones (no GUI tools)
+Address common issues or questions that might arise when engaging with the content of this document. Provide solutions or workarounds.
 
-  ```bash
-  sudo apt install ros-noetic-ros-base
-  ```
+## Further Reading
 
-## Step 5: Environment Setup
+List resources for further exploration of the topic. Include books, articles, web links, and other READMEs.
 
-Add ROS Noetic to your ROS environment by sourcing the setup script:
+## Contributing
 
-```bash
-echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-```
+Explain how readers can contribute to this content. Provide links to contribution guidelines or contact information.
 
-## Step 6: Dependencies for Building Packages
+## License
 
-Install `rosdep` for easy dependency management:
+Specify the licensing information for the content of this document.
 
-```bash
-sudo apt install python3-rosdep
-sudo rosdep init
-rosdep update
-```
+## Acknowledgments
 
-## Step 7: Create a ROS Workspace
+Thank any individuals or organizations that contributed to the creation of this document.
 
-```bash
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/
-catkin_make
-source devel/setup.bash
-```
+---
 
-## Additional Tools and Information
+[Next: ROS Noetic Installation Guide for Ubuntu](./docs/00_ROS_Noetic_Ubuntu_Installation.md)
 
-- **rosinstall**: A frequently used command-line tool in ROS that is distributed separately. It allows you to easily download many source trees for ROS packages with one command.
-
-  Install it with:
-
-  ```bash
-  sudo apt install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
-  ```
-
-- For more details and troubleshooting, visit the [official ROS Noetic installation guide](http://wiki.ros.org/noetic/Installation/Ubuntu).
-
-- For tutorial view the [Quickstart](./Quickstart.md) guide.

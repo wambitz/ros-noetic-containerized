@@ -1,14 +1,14 @@
 version: '3'
 services:
   ros-master:
-    image: ros-dev
+    image: ros-workspace
     container_name:  ros-master
     command: "roscore"
     networks:
       - ros-network
 
   ros-talker:
-    image: ros-dev
+    image: ros-workspace
     container_name:  ros-talker
     volumes:
       - ./catkin_ws/src:/home/ros/catkin_ws/src
@@ -21,7 +21,7 @@ services:
       - ros-network
 
   ros-listener:
-    image: ros-dev
+    image: ros-workspace
     container_name:  ros-listener
     volumes:
       - ./catkin_ws/src:/home/ros/catkin_ws/src

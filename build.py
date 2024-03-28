@@ -19,9 +19,7 @@ def build_image(dockerfile_path, tag):
 
 def main():
     images = [
-        ("ROS-deps.Dockerfile", "ros-deps:latest"),
-        ("ROS-noetic.Dockerfile", "ros-noetic:latest"),
-        ("ROS-dev.Dockerfile", "ros-dev:latest"),
+        ("Dockerfile", "ros-workspace:latest"),
     ]
 
     for dockerfile, tag in images:
