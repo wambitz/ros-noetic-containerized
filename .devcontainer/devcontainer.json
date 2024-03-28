@@ -1,0 +1,23 @@
+{
+    "name": "ROS Noetic Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "ms-iot.vscode-ros"
+            ]
+        }
+    },
+    "postStartCommand": "bash",
+    "forwardPorts": [
+        11311
+    ],
+    "remoteUser": "ros",
+    "runArgs": [
+    ]
+}
