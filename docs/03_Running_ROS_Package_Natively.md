@@ -1,6 +1,6 @@
 [Back to Contents](../README.md)
 
-# Running ROS Package Natively
+# Running ROS Packages Natively
 
 Start a ROS Master in a terminal instance:
 

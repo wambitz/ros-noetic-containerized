@@ -1,6 +1,6 @@
 [Back to Contents](../README.md)
 
-# Running ROS package with a Multiple Containers
+# Running ROS packages with Multiple Containers
 
 ## Using docker compose:
 

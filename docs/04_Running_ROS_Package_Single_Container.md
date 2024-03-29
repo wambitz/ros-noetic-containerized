@@ -1,6 +1,6 @@
 [Back to Contents](../README.md)
 
-# Running ROS package with a Single Container
+# Running ROS packages with a Single Container
 
 Now, you can run your ROS nodes inside a single container. Open three new separate terminal windows or tabs for the `ros-master`, `publisher` and `subscriber` nodes. You will need to attach to the running container from different terminals.
 
