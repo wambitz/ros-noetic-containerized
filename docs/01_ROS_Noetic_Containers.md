@@ -16,7 +16,7 @@ This will create 3 Docker images: 1) Firs image is based on Ubuntu 20.04 with al
 A general note, the order on how this images are created is important since they interdependent.
 
 ```bash
-docker build -t ros-workspace . 
+docker build -t ros-noetic-workspace . 
 ```
 
 ### Step 2. Test your worskpace image 
@@ -24,7 +24,7 @@ docker build -t ros-workspace .
 Create a user container from the custom image:
 
 ```bash
-docker run --rm --name ros-master -it -v ${PWD}/catkin_ws/src:/home/ros/catkin_ws/src ros-workspace
+docker run --rm --name ros-master -it -v ${PWD}/catkin_ws/src:/home/ros/catkin_ws/src ros-noetic-workspace
 ```
 
 Create a root container with ROS installed from the official Docker image.

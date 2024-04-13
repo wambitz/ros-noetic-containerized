@@ -1,6 +1,6 @@
 {
     "name": "ROS Noetic Dev Container",
-    "image": "ros-workspace",
+    "image": "ros-noetic-workspace",
     "customizations": {
         "vscode": {
             "settings": {
@@ -17,5 +17,8 @@
     ],
     "remoteUser": "ros",
     "runArgs": [
+        "-e", "DISPLAY=host.docker.internal:0.0",
+        "--rm",
+        "--name", "ros-noetic"
     ]
 }

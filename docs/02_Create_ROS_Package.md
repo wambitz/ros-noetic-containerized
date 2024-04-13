@@ -5,7 +5,7 @@
 You can do this either natively on your host or inside a container as you did on [Step 2](./01_ROS_Noetic_Containers.md#step-2-test-your-worskpace-image) in the previous section.
 
 ```bash
-docker run --rm --name ros-master -it -v ${PWD}/catkin_ws/src:/home/ros/catkin_ws/src ros-workspace
+docker run --rm --name ros-master -it -v ${PWD}/catkin_ws/src:/home/ros/catkin_ws/src ros-noetic-workspace
 ```
 
 

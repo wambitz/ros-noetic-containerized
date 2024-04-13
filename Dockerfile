@@ -3,23 +3,40 @@ FROM ubuntu:20.04
 
 # Avoid prompts from apt during build and set your desired timezone
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=America/Los_Angeles
 
-# Update and install necessary packages
-RUN apt-get update && apt-get install -y \
-    sudo \
-    lsb-release \
-    gnupg2 \
+# Update and install curl and lsb-release before adding the ROS repository
+RUN apt update && apt install -y \
     curl \
-    tzdata \
-    gcc \
-    g++ \
-    build-essential \
-    # Set up the timezone
-    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-    && dpkg-reconfigure --frontend noninteractive tzdata \
-    # Clean up
-    && apt-get clean \
+    lsb-release \
+    gnupg
+
+# Now that lsb-release is guaranteed to be installed, add the ROS repository
+RUN echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list
+
+# Add the ROS key
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+
+# Install ROS Noetic Base and examples
+RUN apt update && apt install -y \
+    ros-noetic-ros-base \
+    ros-noetic-rospy-tutorials \
+    ros-noetic-turtlesim 
+
+# Dependencies for building packages
+RUN apt install -y \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-rosinstall-generator \
+    python3-wstool \
+    build-essential 
+
+# Initialize rosdep
+RUN apt install python3-rosdep && \
+    rosdep init && \
+    rosdep update
+
+# Clean up
+RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a new user 'ros' with sudo privileges
@@ -30,47 +47,16 @@ RUN useradd -m ros && \
 # Switch to the new user
 USER ros
 
-# Set the working directory
-WORKDIR /home/ros
+# Environment setup
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
-# Setup Your Sources.list
-RUN echo "Setting up sources.list for ROS Noetic" && \
-    sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-
-#Set Up Your Keys
-RUN echo "Adding ROS package keys" && \
-    curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-
-# Ros Base Installation
-RUN echo "Updating package index..." && \
-    sudo apt-get update && \
-    echo "Installing ROS Noetic Desktop Base..." && \
-    # Uncomment the line below for the full desktop installation, or use the ros-base version as needed
-    # apt-get install -y ros-noetic-desktop-full
-    sudo apt-get install -y ros-noetic-ros-base
-
-# Dependencies for Building Packages
-RUN echo "Installing dependencies for building packages" && \
-    sudo apt-get install -y python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
-
-# Initialize rosdep
-RUN sudo rosdep init && \
-    rosdep update
-
-# Set the ROS environment to be sourced upon every bash session
-# NOTE!: ~/.bashrc commands will not work for non-interactive sessions (i.e. docker run -it ...)
-RUN echo "Setting up ROS Noetic environment" && \
-    echo "# NOTE! source ~/.bashrc will not work for non-interactive sessions" >> /home/ros/.bashrc && \
-    echo "source /opt/ros/noetic/setup.bash" >> /home/ros/.bashrc
-
-# Cleanup
-RUN sudo apt-get clean && \
-    sudo rm -rf /var/lib/apt/lists/*    
+# Use sed to uncomment the force_color_prompt line in ~/.bashrc
+RUN sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /home/ros/.bashrc
 
 # Create the Catkin Workspace
 RUN mkdir -p /home/ros/catkin_ws/src
 
-# Set working directory to the Catkin workspace
+# Set working directory to ros user
 WORKDIR /home/ros/catkin_ws
 
 # Copy your entrypoint script into the container
@@ -82,10 +68,5 @@ RUN sudo chmod +x /usr/local/bin/entrypoint.sh
 # Set the entrypoint script to run when the container starts
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-SHELL ["/bin/bash", "-c"]
-
-# Add color to the bash session
-RUN echo "PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /home/ros/.bashrc
-
-# Add custom alias to .bashrc
-RUN echo "alias ll='ls -la'" >> /home/ros/.bashrc
+# Default command to run when a container starts
+CMD ["/bin/bash"]

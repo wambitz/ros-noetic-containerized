@@ -1,39 +1,104 @@
 [Back to Contents](../README.md)
 
-# Using ROS with graphical apps
+## GUI Examples
 
-## Install XServer
-
-First, you'll need to [download XServer](https://sourceforge.net/projects/vcxsrv/) for Windows and install it.
+[Download](https://sourceforge.net/projects/vcxsrv/) XServer for Windows and install it.
 
 Once installed open `xlaunch.exe` and change the display number `0` as shown in the image below.
 
-![xserver](images/image.png)
-
-## ROS GUI apps
-
-> :warninig: **Now to save some time, download an image with docker desktop installed. Otherwise, we would need to install the desktop features in the base image `ros:noetic` or our custom image which takes long time.**
+![xserver](../docs/images/image.png)
 
 
-First start a container with the following arguments to support graphic applications
-
-> :warning: This will show an error because roscore it's not running yet.
+Add the following argument to support graphic applications.
 
 ```bash
-docker run --rm --name ros-gui -e DISPLAY=host.docker.internal:0.0 -it osrf/ros:noetic-desktop
+-e DISPLAY=host.docker.internal:0.0
+```
+
+To run in the terminal: 
+
+```bash
+docker run -it --rm --name ros-noetic -e DISPLAY=host.docker.internal:0.0 ros-noetic-workspace
+```
+
+### Launching Turtlesim
+
+To start the `turtlesim` node, open a new terminal within the DevContainer or Docker container and execute:
+
+> :warning: `roscore` must be running already.
+
+```bash
 rosrun turtlesim turtlesim_node
 ```
 
-Then start `roscore` from the same container
+This command launches a window displaying a turtle in an aquatic environment, waiting for your commands to move around.
 
+### Controlling Turtlesim
+
+To control the turtle, open another terminal and run:
+
+<!-- TODO: Fix me, the arrow keys don't move the turtle -->
 ```bash
-docker exec -it ros-gui bash
-
-# inside the container
-source opt/ros/noetic/setup.bash
-roscore
+rosrun turtlesim turtle_teleop_key
 ```
 
+This command allows you to use keyboard inputs to control the movement of the turtle in the `turtlesim` window.
+
+### Exploring ROS Noetic with Command Line Tools
+
+ROS Noetic continues to offer a comprehensive set of command-line tools that enable you to discover and interact with nodes, topics, services, and more within your ROS 1 environment.
+
+### Listing ROS Topics
+
+To see the list of active topics in ROS Noetic, use:
+
+```bash
+rostopic list
+```
+
+### Echoing Data from a Topic
+
+To view the data being published on a topic in ROS Noetic, replace `<topic_name>` with the actual topic you are interested in:
+
+```bash
+rostopic echo <topic_name>
+```
+
+For instance, to echo the pose of the turtle in `turtlesim`, you might use:
+
+```bash
+rostopic echo /turtle1/pose
+```
+
+### Listing ROS Packages
+
+To list the ROS packages in your workspace for ROS Noetic, you can utilize:
+
+```bash
+rospack list
+```
+
+### Checking ROS Node Info
+
+To obtain more detailed information about a specific node in ROS Noetic, such as the services and topics it interacts with, use:
+
+```bash
+rosnode info <node_name>
+```
+
+### Running ROS Services
+
+Here's how you might call a service to clear the `turtlesim` screen, though the exact service name and type could vary based on the specific setup and version:
+
+```bash
+rosservice call /clear
+```
+
+This command intends to clear the drawing in the `turtlesim` window, though `turtlesim` might use a slightly different service or message type. 
+
+## Conclusion
+
+Whether using the DevContainer for a seamless development experience in VSCode or running Docker directly, this setup facilitates ROS development, ensuring a consistent and isolated environment for building and testing ROS packages.
 ---
 
 [Previous: Use the devcontainer for Debugging](./06_Devcontainer.md) | [Next: Additional notes](./08_Additional_Notes.md)

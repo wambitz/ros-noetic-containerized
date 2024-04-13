@@ -22,13 +22,12 @@
 
 5. **Develop Inside the Container**: Once the container is running, you can start editing your code, running your applications, and using VS Code as if everything were installed locally on your machine.
 
-### Executing the scripts
-
-
-
 ### Troubleshooting Tips
+
 - **Container Doesn't Start**: Check your Docker Desktop or Docker Engine is running. Also, review your `devcontainer.json` for any syntax errors.
+
 - **Extensions Not Working**: Ensure required extensions are listed in the `extensions` section of your `devcontainer.json`.
+
 - **Performance Issues**: Docker performance can vary based on your file system and Docker settings. Consider Docker's documentation for performance tuning specific to your OS.
 
 

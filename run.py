@@ -53,7 +53,7 @@ def run_container(name, network=None, command="/bin/bash", volumes=None, environ
         if environment:
             for key, value in environment.items():
                 cmd.extend(["-e", f"{key}={value}"])
-        cmd.append("ros-workspace")
+        cmd.append("ros-noetic-workspace")
         cmd.append(command)
         
         subprocess.run(cmd, check=True)
