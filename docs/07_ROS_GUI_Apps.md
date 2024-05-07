@@ -37,12 +37,18 @@ This command launches a window displaying a turtle in an aquatic environment, wa
 
 To control the turtle, open another terminal and run:
 
-<!-- TODO: Fix me, the arrow keys don't move the turtle -->
+
 ```bash
+# Connect to running container
+docker exec -it ros1-noetic bash
+
+# Inside the container
 rosrun turtlesim turtle_teleop_key
 ```
 
 This command allows you to use keyboard inputs to control the movement of the turtle in the `turtlesim` window.
+
+> :warning: Ensure that the terminal window running turtle_teleop_key is in focus when pressing the keyboard arrows. If the terminal is not focused, it won't capture the keypress events.
 
 ### Exploring ROS Noetic with Command Line Tools
 
@@ -99,6 +105,7 @@ This command intends to clear the drawing in the `turtlesim` window, though `tur
 ## Conclusion
 
 Whether using the DevContainer for a seamless development experience in VSCode or running Docker directly, this setup facilitates ROS development, ensuring a consistent and isolated environment for building and testing ROS packages.
+
 ---
 
 [Previous: Use the devcontainer for Debugging](./06_Devcontainer.md) | [Next: Additional notes](./08_Additional_Notes.md)
