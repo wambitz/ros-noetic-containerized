@@ -4,7 +4,7 @@
 
 The images `ros-workspace` help to run `ROS Noetic` commands without any additional configuration. :warning: 
 
-These are the manual steps to achieve the same results if there was no entrypoint witht the [official Docker image](https://hub.docker.com/_/ros/tags?page=1&name=noetic)  from the Docker hub
+These are the manual steps to achieve the same results if there was no entrypoint with the [official Docker image](https://hub.docker.com/_/ros/tags?page=1&name=noetic)  from the Docker hub
 
 > :warning: These steps assume you have `ros-network` created already
 
