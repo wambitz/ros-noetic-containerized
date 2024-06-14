@@ -6,7 +6,7 @@ You need to have XServer installed, Ubuntu Desktop includes XServer already.
 
 ### Windows
 
-For Winwdows you need to install an alternative, for example: [Download](https://sourceforge.net/projects/vcxsrv/).
+For Winwdows you need to install an alternative, for example: [Download VcXsrv](https://sourceforge.net/projects/vcxsrv/).
 
 Once installed open `xlaunch.exe` and change the display number `0` as shown in the image below.
 
