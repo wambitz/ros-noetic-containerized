@@ -2,12 +2,17 @@
 
 ## Create ROS package
 
+> ⚠️ This repository already includes the `hello_world_pkg` package, you'll get an error if you try to create a new package with the same name.
+> A few options here:
+> - Delete catkin_ws/src/hello_world_pkg inside the container, i.e.: `rm -rf ~/catkin_ws/src/*`.
+> - Create a new package with a different name, for example, replace: `hello_world_pkg` for `tutorial_pkg`.
+> - Restart your container without mounting the volume, i.e.: remove this argument: `-v ${PWD}/catkin_ws/src:/home/ros/catkin_ws/src` from `docker run`
+
 You can do this either natively on your host or inside a container as you did on [Step 2](./01_ROS_Noetic_Containers.md#step-2-test-your-worskpace-image) in the previous section.
 
 ```bash
 docker run --rm --name ros-master -it -v ${PWD}/catkin_ws/src:/home/ros/catkin_ws/src ros-noetic-workspace
 ```
-
 
 ### Step 1: Create a ROS Package
 
@@ -17,7 +22,7 @@ First, you need to create a ROS package. Open a terminal natively or in your con
 cd ~/catkin_ws/src
 ```
 
-Create a new package named `hello_world_pkg` with dependencies on `rospy` and `std_msgs`:
+Create a package named `hello_world_pkg` with dependencies on `rospy` and `std_msgs`:
 
 ```bash
 catkin_create_pkg hello_world_pkg rospy std_msgs
