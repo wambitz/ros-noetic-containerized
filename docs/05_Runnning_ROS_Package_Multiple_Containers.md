@@ -31,9 +31,6 @@ docker network create ros-network
 
 > :warning: This only works because of the the entrypoiny. Look at the [Additional Notes](./07_Additional_Notes.md) for further details.
 
-This approach needs to mount the previous folder structure mounted (Step 3 to 5)
-Otherwise all the steps need to be repeated on every container
-
 Then create a master container:
 
 ```bash
